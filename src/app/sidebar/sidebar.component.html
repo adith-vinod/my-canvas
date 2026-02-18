@@ -1,0 +1,5 @@
+@for (item of data; track $index) {
+<div [dndDraggable]="item" dndEffectAllowed="copy">
+{{item.text}}
+</div>
+}
