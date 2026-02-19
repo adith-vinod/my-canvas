@@ -23,14 +23,14 @@ export class Block extends dia.Element {
       type: 'examples.Block',
       size: {
         width: 100,
-        height: 50,
+        height: 100,
       },
       attrs: {
         body: {
           fill: 'white',
           stroke: 'red',
           strokeWidth: 2,
-          height: 50,
+          height: 100,
           width: 100,
         },
         label: {
@@ -41,7 +41,73 @@ export class Block extends dia.Element {
           textVerticalAnchor: 'middle',
         },
       },
+      ports:{
+       groups:{
+        in:inputPortGroup,
+        out:outputPortGroup
+       }
+      }
     };
   }
   
 }
+
+
+const inputPortGroup = {
+  position: {
+    name: 'left'
+  },
+  attrs: {
+    portBody: {
+      magnet: true,
+      r:8,
+      cx:0,
+      cy:0,
+      fill: '#44A194'
+    },
+    label: {
+      fill: 'black'
+    }
+  },
+  markup: [
+    {
+      tagName: 'circle',
+      selector: 'portBody'
+    }
+  ],
+  label: {
+    position: {
+      name: 'left'
+    }
+  }
+};
+
+const outputPortGroup = {
+  position: {
+    name: 'right'
+  },
+  attrs: {
+    portBody: {
+      magnet: true,
+      r:8,
+      cx:0,
+      cy:0,
+      fill: '#EC8F8D'
+    },
+    label: {
+      fill: 'black'
+    }
+  },
+  markup: [
+    {
+      tagName: 'circle',
+      selector: 'portBody'
+    }
+  ],
+  label: {
+    position: {
+      name: 'right'
+    }
+  }
+};
+

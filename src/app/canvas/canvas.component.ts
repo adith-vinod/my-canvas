@@ -34,12 +34,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       this.canvasRegistryService.initializeRegistry(res);
       if (res.length) {
         res.forEach((data) => {
-          const element = new Block({}, data);
-          const { position } = data;
-          element.position(position.x, position.y);
-          element.set('text', data.text);
-          element.attr('label/text', data.text);
-          element.addTo(this.graph);
+          this.renderNode(data);
         });
       }
       this.canvasRegistry = this.canvasRegistryService.getRegistry();
@@ -54,6 +49,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       gridSize: 10,
       drawGrid: true,
       cellViewNamespace: this.namespace,
+      linkPinning: false,
     });
   }
 
@@ -64,11 +60,42 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     const { left, top } = rect;
     const x = clientX - left;
     const y = clientY - top;
+    this.canvasRegistry.add(this.renderNode({ ...data, position: { x, y } }));
+  }
+
+  renderNode(data: any) {
     const element = new Block({}, data);
-    element.position(x, y);
+    const { position } = data;
+    element.position(position.x, position.y);
     element.set('text', data.text);
     element.attr('label/text', data.text);
     element.addTo(this.graph);
-    this.canvasRegistry.add(element);
+    element.addPorts([
+      {
+        group: 'in',
+        attrs: {
+          label: {
+            text: 'in1',
+          },
+        },
+      },
+      {
+        group: 'in',
+        attrs: {
+          label: {
+            text: 'in2',
+          },
+        },
+      },
+      {
+        group: 'out',
+        attrs: {
+          label: {
+            text: 'out1',
+          },
+        },
+      },
+    ]);
+    return element;
   }
 }
