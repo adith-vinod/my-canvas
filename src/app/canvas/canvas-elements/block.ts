@@ -6,7 +6,6 @@ export class Block extends dia.Element {
     attributes?: dia.Element.Attributes | undefined,
     options?: any
   ): void {
-    this.text = options?.text || 'Hi';
     this.markup = [
       {
         tagName: 'rect',
@@ -35,7 +34,6 @@ export class Block extends dia.Element {
           width: 100,
         },
         label: {
-          text: this.text,
           fill: 'black',
           x: 'calc(w/2)',
           y: 'calc(h/2)',
